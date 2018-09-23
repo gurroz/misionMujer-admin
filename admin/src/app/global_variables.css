@@ -1,0 +1,44 @@
+:root {
+  /*COMMON*/
+
+  --global-background: #1C2134;
+  --global-font-color: #E4E5E8;
+  --global-foreground: #262D45;
+  --global-shadow: #1D1D1D;
+  --global-title-primary: #FDB913;
+  --global-nav-hover: #F1F1F1;
+
+  --global-secondary-font-color: #72757F;
+  --global-nav-color: #818181;
+
+  --global-btn-border: #818596;
+  --global-btn-hover: #FDB913;
+
+  --global-info-span: #4D4D4D;
+
+  --global-title-secondary: #262D45;
+
+  --global-scroll-normal: #A5A5A5;
+  --global-scroll-hover: #B1B1B1;
+
+  --global-item-selected-border: #FDB913;
+
+  --global-select-background: #1C2134;
+  --global-select-color: #FDB913;
+
+  --global-error-color: #FC5251;
+  --global-caution-color: #FDB913;
+  --global-healthy-color: #27AE60;
+
+  --global-login-btn: #F4BB44;
+  --global-login-btn-color: #FFFFFF;
+  --global-login-btn-disabled: #C99836;
+
+  --global-login-msg-color: #B3B3B3;
+  --global-login-msg-link: #1C2134;
+  --global-login-msg-error: #B31417;
+
+  --global-alert-timeline-line: #FFFFFF;
+  --global-image-brightness: 100%;
+
+}
