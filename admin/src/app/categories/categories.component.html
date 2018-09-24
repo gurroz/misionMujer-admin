@@ -6,20 +6,24 @@
   <li class="breadcrumb-item active"></li>
 </ol>
 
+<div *ngIf="isLoading" class="lds-ripple"><div></div><div></div></div>
 <div class="row">
   <div class="col-12 mb-3">
-    <form>
+    <form *ngIf="isAdding">
       <div class="row">
         <div class="col">
-          <input type="text" class="form-control" placeholder="Name">
+          <input type="text" class="form-control" placeholder="Name" name="name" [(ngModel)]="newCategory.name">
         </div>
         <div class="col">
-          <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
-          <button (click)="fileInput.click()">Select File</button>
+          <input type="file" (change)="onFileChanged($event)">
+          <!--<button (click)="imgInput.click()">Select File</button>-->
+        </div>
+        <div class="col">
+          <button type="button" class="btn btn-success" (click)="submitContent()">Submit</button>
         </div>
       </div>
     </form>
-    <button type="button" class="btn btn-success">Add</button>
+    <button *ngIf="!isAdding" (click)="addingMode()" type="button" class="btn btn-success">Add</button>
   </div>
 </div>
 <div class="row">
@@ -40,8 +44,8 @@
           <td>{{category.name}}</td>
           <td><img src="{{category.image}}" width="200px"></td>
           <td>
-            <button type="button" class="btn btn-success">Edit</button>
-            <button type="button" class="btn btn-danger">Delete</button>
+            <button type="button" class="btn btn-success" (click)="editCategory(category)">Edit</button>
+            <button type="button" class="btn btn-danger" (click)="deleteCategory(category.id)">Delete</button>
           </td>
         </tr>
         </tbody>

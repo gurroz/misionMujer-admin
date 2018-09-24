@@ -12,6 +12,7 @@ import {CategoriesService} from './categories/categories.service';
 import {NewsService} from './news/news.service';
 import {TeachingsService} from './teachings/teachings.service';
 import {HttpClientModule} from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import {HttpClientModule} from '@angular/common/http';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AuthModule,
     AppRoutingModule,
     HttpClientModule,
