@@ -7,7 +7,6 @@ import {Category} from './category.model';
 @Injectable()
 export class CategoriesService {
 
-
   private categoriesUrl = environment.baseURL + '/categories/';  // URL to web api
 
   constructor(private http: HttpClient) {}

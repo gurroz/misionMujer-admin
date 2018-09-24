@@ -1,3 +1,68 @@
-<p>
-  news works!
-</p>
+<!-- Breadcrumbs-->
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a href="#">News</a>
+  </li>
+  <li class="breadcrumb-item active"></li>
+</ol>
+
+<div *ngIf="isLoading" class="lds-ripple"><div></div><div></div></div>
+<div class="row">
+  <div class="col-12 mb-3">
+    <form *ngIf="isAdding">
+      <div class="row">
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Name" name="name" [(ngModel)]="newNews.title">
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Description" name="description" [(ngModel)]="newNews.description">
+        </div>
+        <div class="col">
+          <button type="button" class="btn btn-success" (click)="submitContent()">Submit</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Content" name="content" [(ngModel)]="newNews.content">
+        </div>
+        <div class="col">
+          <input type="file" (change)="onFileChanged($event)">
+        </div>
+      </div>
+    </form>
+    <button *ngIf="!isAdding" (click)="addingMode()" type="button" class="btn btn-success">Add</button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 mb-3">
+    <div class="card" style="width: 80%;">
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Title</th>
+          <th scope="col">Description</th>
+          <th scope="col">Content</th>
+          <th scope="col">Image</th>
+
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let news of newsList">
+          <th scope="row">{{news.id}}</th>
+          <td>{{news.title}}</td>
+          <td>{{news.description}}</td>
+          <td>{{news.content}}</td>
+          <td><img src="{{news.image}}" width="200px"></td>
+          <td>
+            <button type="button" class="btn btn-success" (click)="editNews(news)">Edit</button>
+            <button type="button" class="btn btn-danger" (click)="deleteNews(news.id)">Delete</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

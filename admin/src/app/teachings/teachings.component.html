@@ -1,3 +1,86 @@
-<p>
-  teachings works!
-</p>
+<!-- Breadcrumbs-->
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a href="#">Teachings</a>
+  </li>
+  <li class="breadcrumb-item active"></li>
+</ol>
+
+<div *ngIf="isLoading" class="lds-ripple"><div></div><div></div></div>
+<div class="row">
+  <div class="col-12 mb-3">
+    <form *ngIf="isAdding">
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" placeholder="Title" name="title" id="title" [(ngModel)]="newTeaching.title">
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" placeholder="Description" id="description" name="description" [(ngModel)]="newTeaching.description">
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="type">Type</label>
+            <select class="form-control" id="type" name="type" [(ngModel)]="newTeaching.type">
+              <option>AUDIO</option>
+              <option>VIDEO</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div *ngFor="let category of categories" class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="chk{{category.id}}" value="{{category}}">
+            <label class="form-check-label" for="chk{{category.id}}">{{category.name}}</label>
+          </div>
+        </div>
+        <div class="col">
+          <input type="file" (change)="onFileChanged($event)">
+        </div>
+        <div class="col">
+          <button type="button" class="btn btn-success" (click)="submitContent()">Submit</button>
+        </div>
+      </div>
+    </form>
+    <button *ngIf="!isAdding" (click)="addingMode()" type="button" class="btn btn-success">Add</button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 mb-3">
+    <div class="card" style="width: 80%;">
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Title</th>
+          <th scope="col">Description</th>
+          <th scope="col">Type</th>
+          <th scope="col">Image</th>
+
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let teaching of teachings">
+          <th scope="row">{{teaching.id}}</th>
+          <td>{{teaching.title}}</td>
+          <td>{{teaching.description}}</td>
+          <td>{{teaching.type}}</td>
+          <td><img src="{{teaching.image}}" width="200px"></td>
+          <td>
+            <button type="button" class="btn btn-success" (click)="editTeaching(teaching)">Edit</button>
+            <button type="button" class="btn btn-danger" (click)="deleteTeaching(teaching.id)">Delete</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
