@@ -12,11 +12,12 @@ import {CategoriesService} from '../categories/categories.service';
 })
 export class TeachingsComponent implements OnInit {
 
-  teachings: [Teaching];
+  teachings: Teaching[];
   isAdding = false;
   isLoading = false;
   newTeaching: Teaching;
-  categories: [Category];
+  categoriesChk: ChkCategory[];
+  originalCategoriesChk: ChkCategory[];
   file: any;
 
   constructor(private teachingService: TeachingsService, private categoriesService: CategoriesService) { }
@@ -29,6 +30,12 @@ export class TeachingsComponent implements OnInit {
 
   onFileChanged(event) {
     this.file = event.target.files[0];
+  }
+
+  selectedOptions(): Category[] {
+    return this.categoriesChk
+      .filter(opt => opt.checked)
+      .map(data => data.category);
   }
 
   submitContent() {
@@ -67,6 +74,8 @@ export class TeachingsComponent implements OnInit {
   }
 
   uploadTeaching(): void {
+    console.log('Sending teachings', this.newTeaching);
+    this.newTeaching.categories = this.selectedOptions();
     if (this.newTeaching.id) { // UPDATE
       this.teachingService.editTeachings(this.newTeaching).subscribe(resp => {
         this.isAdding = false;
@@ -83,6 +92,7 @@ export class TeachingsComponent implements OnInit {
   addingMode() {
     this.isAdding = true;
     this.newTeaching = new Teaching();
+    this.categoriesChk = this.originalCategoriesChk.map(x => Object.assign({}, x));
   }
 
   deleteTeaching(TeachingsId: number): void {
@@ -94,6 +104,15 @@ export class TeachingsComponent implements OnInit {
 
   editTeaching(teachings: Teaching): void {
     this.newTeaching = teachings;
+    this.categoriesChk = this.categoriesChk.map(e => {
+      if (this.newTeaching.categories.map(i => i.name).indexOf(e.category.name)) {
+        e.checked = true;
+      } else {
+        e.checked = false;
+      }
+      return e;
+    });
+
     this.isAdding = true;
   }
 
@@ -106,8 +125,21 @@ export class TeachingsComponent implements OnInit {
 
   getCategories(): void {
     this.categoriesService.getCategories().subscribe(data => {
-      this.categories = data;
+      this.categoriesChk  = data.map(function(e) {
+        const chkOb = new ChkCategory();
+        chkOb.category = e;
+        chkOb.checked = false;
+        return chkOb;
+      });
+
+      this.originalCategoriesChk = this.categoriesChk.map(x => Object.assign({}, x));
     });
   }
+
+}
+
+export class ChkCategory {
+  category: Category;
+  checked: boolean;
 
 }
