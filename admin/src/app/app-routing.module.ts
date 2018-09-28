@@ -13,7 +13,7 @@ const routes: Routes = [
   , { path: 'news', component: NewsComponent }
   , { path: 'teachings', component: TeachingsComponent }
   , { path: 'categories', component: CategoriesComponent }
-  , { path: '', component: AppComponent }
+  , { path: '', component: NewsComponent }
 
 ];
 

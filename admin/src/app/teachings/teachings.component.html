@@ -25,6 +25,12 @@
         </div>
         <div class="col">
           <div class="form-group">
+            <label for="content">Content</label>
+            <textarea type="text" class="form-control" placeholder="Content" id="content" name="content" [(ngModel)]="newTeaching.content"></textarea>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
             <label for="type">Type</label>
             <select class="form-control" id="type" name="type" [(ngModel)]="newTeaching.type">
               <option>AUDIO</option>
@@ -34,7 +40,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col">
+        <div class="col offset-1">
           <div *ngFor="let chk of categoriesChk" class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox" name="chk{{chk.category.id}}" id="chk{{chk.category.id}}" value="{{chk.category}}" [(ngModel)]="chk.checked">
             <label class="form-check-label" for="chk{{chk.category.id}}">{{chk.category.name}}</label>

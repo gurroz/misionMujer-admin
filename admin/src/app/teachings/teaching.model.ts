@@ -6,6 +6,7 @@ export class Teaching {
   type: string;
   image: string;
   description: string;
+  content: string;
   categories: Category[];
   file: string;
 }
