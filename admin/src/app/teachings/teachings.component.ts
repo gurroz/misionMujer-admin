@@ -19,6 +19,7 @@ export class TeachingsComponent implements OnInit {
   categoriesChk: ChkCategory[];
   originalCategoriesChk: ChkCategory[];
   file: any;
+  imageFile: any;
 
   constructor(private teachingService: TeachingsService, private categoriesService: CategoriesService) { }
 
@@ -32,6 +33,11 @@ export class TeachingsComponent implements OnInit {
     this.file = event.target.files[0];
   }
 
+  onImageFileChanged(event) {
+
+    this.imageFile = event.target.files[0];
+  }
+
   selectedOptions(): Category[] {
     return this.categoriesChk
       .filter(opt => opt.checked)
@@ -40,31 +46,50 @@ export class TeachingsComponent implements OnInit {
 
   submitContent() {
     this.isLoading = true;
+    const AWSService = AWS;
+    const region = 'us-east-1';
+    const bucketName = 'misionmujerbucket';
+    const IdentityPoolId = 'us-east-1:ad5897aa-d131-4333-9a80-e74dd375c7f1';
+
+    // Configures the AWS service and initial authorization
+    AWSService.config.update({
+      region: region,
+      credentials: new AWSService.CognitoIdentityCredentials({
+        IdentityPoolId: IdentityPoolId
+      })
+    });
+
+    const s3 = new AWSService.S3({
+      apiVersion: '2006-03-01',
+      params: { Bucket: bucketName}
+    });
+
     if (this.file) {
-      const AWSService = AWS;
-      const region = 'us-east-1';
-      const bucketName = 'misionmujerbucket';
-      const IdentityPoolId = 'us-east-1:ad5897aa-d131-4333-9a80-e74dd375c7f1';
-
-      // Configures the AWS service and initial authorization
-      AWSService.config.update({
-        region: region,
-        credentials: new AWSService.CognitoIdentityCredentials({
-          IdentityPoolId: IdentityPoolId
-        })
-      });
-
-      // adds the S3 service, make sure the api version and bucket are correct
-      const s3 = new AWSService.S3({
-        apiVersion: '2006-03-01',
-        params: { Bucket: bucketName}
-      });
-
       s3.upload({ Key: this.file.name, Bucket: bucketName, Body: this.file, ACL: 'public-read'},  (err, data) => {
         if (err) {
           console.log(err, 'there was an error uploading your file');
         } else {
           this.newTeaching.file = data.Location;
+          if (this.imageFile) {
+            s3.upload({Key: this.imageFile.name, Bucket: bucketName, Body: this.imageFile, ACL: 'public-read'}, (err2, data2) => {
+              if (err2) {
+                console.log(err2, 'there was an error uploading your image file');
+              } else {
+                this.newTeaching.image = data2.Location;
+                this.uploadTeaching();
+              }
+            });
+          } else {
+            this.uploadTeaching();
+          }
+        }
+      });
+    }  else if (this.imageFile) {
+      s3.upload({ Key: this.imageFile.name, Bucket: bucketName, Body: this.imageFile, ACL: 'public-read'},  (err, data) => {
+        if (err) {
+          console.log(err, 'there was an error uploading your image file');
+        } else {
+          this.newTeaching.image = data.Location;
           this.uploadTeaching();
         }
       });

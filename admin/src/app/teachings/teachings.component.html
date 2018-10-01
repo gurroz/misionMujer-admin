@@ -40,7 +40,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col offset-1">
+        <div class="col">
           <div *ngFor="let chk of categoriesChk" class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox" name="chk{{chk.category.id}}" id="chk{{chk.category.id}}" value="{{chk.category}}" [(ngModel)]="chk.checked">
             <label class="form-check-label" for="chk{{chk.category.id}}">{{chk.category.name}}</label>
@@ -48,6 +48,9 @@
         </div>
         <div class="col">
           <input type="file" (change)="onFileChanged($event)">
+        </div>
+        <div class="col">
+          <input type="file" (change)="onImageFileChanged($event)">
         </div>
         <div class="col">
           <button type="button" class="btn btn-success" (click)="submitContent()">Submit</button>
@@ -78,7 +81,7 @@
           <td>{{teaching.title}}</td>
           <td>{{teaching.description}}</td>
           <td>{{teaching.type}}</td>
-          <td><img src="{{teaching.image}}" width="200px"></td>
+          <td><img src="{{teaching.cover}}" width="200px"></td>
           <td>
             <button type="button" class="btn btn-success" (click)="editTeaching(teaching)">Edit</button>
             <button type="button" class="btn btn-danger" (click)="deleteTeaching(teaching.id)">Delete</button>

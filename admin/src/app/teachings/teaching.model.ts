@@ -5,6 +5,7 @@ export class Teaching {
   title: string;
   type: string;
   image: string;
+  cover: string;
   description: string;
   content: string;
   categories: Category[];
