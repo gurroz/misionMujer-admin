@@ -8,7 +8,6 @@ import {News} from './news.model';
 export class NewsService {
 
   private newsUrl = environment.baseURL + '/news/';  // URL to web api
-
   constructor(private http: HttpClient) {}
 
   getNews(): Observable<any> {
@@ -26,5 +25,4 @@ export class NewsService {
   editNews(news: News): Observable<any> {
     return this.http.put<any>(this.newsUrl + news.id, news);
   }
-
 }

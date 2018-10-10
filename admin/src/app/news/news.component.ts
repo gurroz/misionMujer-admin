@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {News} from './news.model';
 import {NewsService} from './news.service';
 import * as AWS from 'aws-sdk';
+import {ImageOptimizationService} from '../util/image-optimization.service';
 
 @Component({
   selector: 'app-news',
@@ -16,7 +17,7 @@ export class NewsComponent implements OnInit {
   newNews: News;
   file: any;
 
-  constructor(private newsService: NewsService) { }
+  constructor(private newsService: NewsService, private imageOptimizationService: ImageOptimizationService) { }
 
   ngOnInit() {
     this.newNews = new News();
@@ -55,6 +56,8 @@ export class NewsComponent implements OnInit {
         } else {
           this.newNews.image = data.Location;
           this.uploadCategory();
+          console.log('About to Sending image to optimize');
+          this.imageOptimizationService.optimizeImages(data.Location).subscribe();
         }
       });
     } else {

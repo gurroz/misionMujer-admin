@@ -31,3 +31,9 @@
     opacity: 0;
   }
 }
+.display-max-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}

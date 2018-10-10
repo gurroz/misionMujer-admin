@@ -26,5 +26,4 @@ export class TeachingsService {
   editTeachings(teaching: Teaching): Observable<any> {
     return this.http.put<any>(this.teachingUrl + teaching.id, teaching);
   }
-
 }

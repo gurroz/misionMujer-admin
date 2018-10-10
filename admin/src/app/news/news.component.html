@@ -10,32 +10,60 @@
 <div class="row">
   <div class="col-12 mb-3">
     <form *ngIf="isAdding">
-      <div class="row">
-        <div class="col">
-          <input type="text" class="form-control" placeholder="Name" name="name" [(ngModel)]="newNews.title">
-        </div>
-        <div class="col">
-          <input type="text" class="form-control" placeholder="Description" name="description" [(ngModel)]="newNews.description">
-        </div>
-        <div class="col">
-          <button type="button" class="btn btn-success" (click)="submitContent()">Submit</button>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <input type="text" class="form-control" placeholder="Content" name="content" [(ngModel)]="newNews.content">
-        </div>
-        <div class="col">
-          <input type="file" (change)="onFileChanged($event)">
+      <h3>{{newNews.id ? 'Editing' : 'Creating'}}</h3>
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+
+            <div class="col">
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <label for="name">Title</label>
+                    <input type="text" class="form-control" id="name" placeholder="Name" name="name" [(ngModel)]="newNews.title">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <label for="description">Description</label>
+                    <input type="text" class="form-control" id="description" placeholder="Description" name="description" [(ngModel)]="newNews.description">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <label for="description">Image</label>
+                    <input  class="form-control" type="file" id="image" (change)="onFileChanged($event)">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <button type="button" class="btn btn-success" (click)="submitContent()">Submit</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="form-group">
+                <label for="content">Content</label>
+                <textarea rows="6" class="form-control" id="content" placeholder="Content" name="content" [(ngModel)]="newNews.content"></textarea>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </form>
+
     <button *ngIf="!isAdding" (click)="addingMode()" type="button" class="btn btn-success">Add</button>
   </div>
 </div>
 <div class="row">
   <div class="col-12 mb-3">
-    <div class="card" style="width: 80%;">
+    <div class="card">
       <table class="table">
         <thead>
         <tr>
@@ -50,10 +78,10 @@
         </thead>
         <tbody>
         <tr *ngFor="let news of newsList">
-          <th scope="row">{{news.id}}</th>
-          <td>{{news.title}}</td>
-          <td>{{news.description}}</td>
-          <td>{{news.content}}</td>
+          <th scope="row" >{{news.id}}</th>
+          <td class="display-max-text">{{news.title}}</td>
+          <td class="display-max-text">{{news.description}}</td>
+          <td class="display-max-text">{{news.content}}</td>
           <td><img src="{{news.image}}" width="200px"></td>
           <td>
             <button type="button" class="btn btn-success" (click)="editNews(news)">Edit</button>

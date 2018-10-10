@@ -4,6 +4,8 @@ import * as AWS from 'aws-sdk';
 import {TeachingsService} from './teachings.service';
 import {Category} from '../categories/category.model';
 import {CategoriesService} from '../categories/categories.service';
+import {NewsService} from '../news/news.service';
+import {ImageOptimizationService} from '../util/image-optimization.service';
 
 @Component({
   selector: 'app-teachings',
@@ -21,7 +23,7 @@ export class TeachingsComponent implements OnInit {
   file: any;
   imageFile: any;
 
-  constructor(private teachingService: TeachingsService, private categoriesService: CategoriesService) { }
+  constructor(private teachingService: TeachingsService, private categoriesService: CategoriesService, private imageOptimizationService: ImageOptimizationService) { }
 
   ngOnInit() {
     this.newTeaching = new Teaching();
@@ -77,6 +79,7 @@ export class TeachingsComponent implements OnInit {
               } else {
                 this.newTeaching.image = data2.Location;
                 this.uploadTeaching();
+                this.optimizeImage(this.newTeaching.image);
               }
             });
           } else {
@@ -91,6 +94,7 @@ export class TeachingsComponent implements OnInit {
         } else {
           this.newTeaching.image = data.Location;
           this.uploadTeaching();
+          this.optimizeImage(this.newTeaching.image);
         }
       });
     } else {
@@ -159,6 +163,10 @@ export class TeachingsComponent implements OnInit {
 
       this.originalCategoriesChk = this.categoriesChk.map(x => Object.assign({}, x));
     });
+  }
+
+  optimizeImage(imageUrl: String): void {
+    this.imageOptimizationService.optimizeImages(imageUrl).subscribe();
   }
 
 }

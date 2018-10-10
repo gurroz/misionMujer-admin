@@ -10,16 +10,32 @@
 <div class="row">
   <div class="col-12 mb-3">
     <form *ngIf="isAdding">
-      <div class="row">
-        <div class="col">
-          <input type="text" class="form-control" placeholder="Name" name="name" [(ngModel)]="newCategory.name">
-        </div>
-        <div class="col">
-          <input type="file" (change)="onFileChanged($event)">
-          <!--<button (click)="imgInput.click()">Select File</button>-->
-        </div>
-        <div class="col">
-          <button type="button" class="btn btn-success" (click)="submitContent()">Submit</button>
+      <h3>{{newCategory.id ? 'Editing' : 'Creating'}}</h3>
+      <div class="card">
+        <div class="card-body">
+
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" placeholder="Name" id="name" name="name" [(ngModel)]="newCategory.name">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="image">Image</label>
+                <input type="file" id="image" class="form-control" (change)="onFileChanged($event)">
+              </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                  <button type="button" id="sumbitBtn" class="align-self-end btn btn-success" (click)="submitContent()">Submit</button>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </form>
@@ -28,7 +44,7 @@
 </div>
 <div class="row">
   <div class="col-12 mb-3">
-    <div class="card" style="width: 80%;">
+    <div class="card">
       <table class="table">
         <thead>
         <tr>
@@ -41,7 +57,7 @@
         <tbody>
         <tr *ngFor="let category of categories">
           <th scope="row">{{category.id}}</th>
-          <td>{{category.name}}</td>
+          <td class="display-max-text">{{category.name}}</td>
           <td><img src="{{category.image}}" width="200px"></td>
           <td>
             <button type="button" class="btn btn-success" (click)="editCategory(category)">Edit</button>

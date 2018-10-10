@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CategoriesService} from './categories.service';
 import {Category} from './category.model';
 import * as AWS from 'aws-sdk';
+import {ImageOptimizationService} from '../util/image-optimization.service';
 
 @Component({
   selector: 'app-categories',
@@ -16,7 +17,7 @@ export class CategoriesComponent implements OnInit {
   newCategory: Category;
   file: any;
 
-  constructor(private categoryService: CategoriesService) { }
+  constructor(private categoryService: CategoriesService, private imageOptimizationService: ImageOptimizationService) { }
 
   ngOnInit() {
     this.newCategory = new Category();
@@ -55,6 +56,7 @@ export class CategoriesComponent implements OnInit {
         } else {
           this.newCategory.image = data.Location;
           this.uploadCategory();
+          this.imageOptimizationService.optimizeImages(data.Location);
         }
       });
     } else {

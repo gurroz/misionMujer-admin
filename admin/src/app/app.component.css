@@ -124,6 +124,17 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
   font-size: 0.5rem;
 }
 
+
+.sidebar {
+  content: "";
+  background: url('../assets/flower.jpg');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  opacity: 0.8;
+  left: 0;
+  bottom: 0;
+}
+
 @media (min-width: 768px) {
   .navbar-nav .form-inline .input-group {
     width: auto;
@@ -132,7 +143,7 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
 
 .sidebar {
   width: 90px !important;
-  background-color: #212529;
+  background-color: rgba(0, 0, 0, 1);
   min-height: calc(100vh - 56px);
 }
 
