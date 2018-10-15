@@ -6,6 +6,7 @@ import {Category} from '../categories/category.model';
 import {CategoriesService} from '../categories/categories.service';
 import {NewsService} from '../news/news.service';
 import {ImageOptimizationService} from '../util/image-optimization.service';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-teachings',
@@ -23,7 +24,8 @@ export class TeachingsComponent implements OnInit {
   file: any;
   imageFile: any;
 
-  constructor(private teachingService: TeachingsService, private categoriesService: CategoriesService, private imageOptimizationService: ImageOptimizationService) { }
+  constructor(private teachingService: TeachingsService, private categoriesService: CategoriesService,
+              private imageOptimizationService: ImageOptimizationService) { }
 
   ngOnInit() {
     this.newTeaching = new Teaching();
@@ -49,9 +51,9 @@ export class TeachingsComponent implements OnInit {
   submitContent() {
     this.isLoading = true;
     const AWSService = AWS;
-    const region = 'us-east-1';
-    const bucketName = 'misionmujerbucket';
-    const IdentityPoolId = 'us-east-1:ad5897aa-d131-4333-9a80-e74dd375c7f1';
+    const region = environment.awsRegion;
+    const bucketName = environment.awsBucketName;
+    const IdentityPoolId = environment.awsIdentityPoolId;
 
     // Configures the AWS service and initial authorization
     AWSService.config.update({

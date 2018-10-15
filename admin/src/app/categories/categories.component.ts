@@ -3,6 +3,7 @@ import {CategoriesService} from './categories.service';
 import {Category} from './category.model';
 import * as AWS from 'aws-sdk';
 import {ImageOptimizationService} from '../util/image-optimization.service';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-categories',
@@ -32,9 +33,9 @@ export class CategoriesComponent implements OnInit {
     this.isLoading = true;
     if (this.file) {
       const AWSService = AWS;
-      const region = 'us-east-1';
-      const bucketName = 'misionmujerbucket';
-      const IdentityPoolId = 'us-east-1:ad5897aa-d131-4333-9a80-e74dd375c7f1';
+      const region = environment.awsRegion;
+      const bucketName = environment.awsBucketName;
+      const IdentityPoolId = environment.awsIdentityPoolId;
 
       // Configures the AWS service and initial authorization
       AWSService.config.update({
