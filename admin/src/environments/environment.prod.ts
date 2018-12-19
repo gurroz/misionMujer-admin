@@ -1,8 +1,8 @@
 export const environment = {
   production: true,
-  baseURL: 'https://www.misionmujer.org:8089',
+  baseURL: 'https://www.misionmujer.org/api/v1',
   awsRegion: 'us-east-1',
   awsBucketName: 'us-east-1',
-  awsIdentityPoolId: 'us-east-1:ad5897aa-d131-4333-9a80-e74dd375c7f1',
+  awsIdentityPoolId: 'us-east-1:b4356ee4-f7df-4d6b-b484-51413cfb26de',
   optimizationUrl:  'https://us-central1-misionmujer-webadmin.cloudfunctions.net/image-optimizer'
 };
