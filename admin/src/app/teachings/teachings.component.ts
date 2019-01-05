@@ -4,7 +4,6 @@ import * as AWS from 'aws-sdk';
 import {TeachingsService} from './teachings.service';
 import {Category} from '../categories/category.model';
 import {CategoriesService} from '../categories/categories.service';
-import {NewsService} from '../news/news.service';
 import {ImageOptimizationService} from '../util/image-optimization.service';
 import {environment} from '../../environments/environment';
 
@@ -149,14 +148,14 @@ export class TeachingsComponent implements OnInit {
 
   getTeachings(): void {
     this.teachingService.getTeachings().subscribe(data => {
-      this.teachings = data;
+      this.teachings = data['data'];
       this.isLoading = false;
     });
   }
 
   getCategories(): void {
     this.categoriesService.getCategories().subscribe(data => {
-      this.categoriesChk  = data.map(function(e) {
+      this.categoriesChk  = data['data'].map(function(e) {
         const chkOb = new ChkCategory();
         chkOb.category = e;
         chkOb.checked = false;

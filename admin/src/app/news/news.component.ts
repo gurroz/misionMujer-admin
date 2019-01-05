@@ -99,7 +99,7 @@ export class NewsComponent implements OnInit {
 
   getNews(): void {
     this.newsService.getNews().subscribe(data => {
-      this.newsList = data;
+      this.newsList = data['data'];
       this.isLoading = false;
     });
   }

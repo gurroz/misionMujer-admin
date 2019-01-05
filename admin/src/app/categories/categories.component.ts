@@ -99,7 +99,7 @@ export class CategoriesComponent implements OnInit {
 
   getCategories(): void {
     this.categoryService.getCategories().subscribe(data => {
-      this.categories = data;
+      this.categories = data['data'];
       this.isLoading = false;
     });
   }
